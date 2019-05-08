@@ -49,8 +49,6 @@ def get_col_c(website):
     '''
     Column C represents Bugzilla bugs created after the DX Epoch (2018-01-01).
     '''
-    # we want to add the dot back for Bugzilla search
-    website = website.replace(' ', '.')
     template = 'https://bugzilla.mozilla.org/buglist.cgi?f1=OP&bug_file_loc_type=allwordssubstr&o3=greaterthan&list_id=14636479&v3=2018&resolution=---&bug_file_loc={site}&query_format=advanced&f3=creation_ts&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&product=Core&product=Fenix&product=Firefox%20for%20Android&product=Firefox%20for%20Echo%20Show&product=Firefox%20for%20FireTV&product=Firefox%20for%20iOS&product=GeckoView&product=Web%20Compatibility&keywords_type=nowords&keywords=meta%2C%20&status_whiteboard_type=notregexp&status_whiteboard=sci%5C-exclude'  # noqa
     query = template.format(site=website)
     session = HTMLSession()
@@ -179,7 +177,7 @@ if __name__ == '__main__':
         space_website = website.replace('.', ' ')
         row = [
             website,
-            get_col_c(space_website),
+            get_col_c(website),
             get_col_d(space_website),
             get_col_e(space_website),
             get_col_h(website),
