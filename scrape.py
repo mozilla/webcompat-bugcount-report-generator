@@ -167,7 +167,7 @@ if __name__ == '__main__':
 
     dataset_out = Dataset(headers=[
         'Website',
-        'fresh 🐞s',
+        'bugzilla 🐞s',
         'webcompat.com 🐞s',
         'severity-critical 🐞s',
         'duplicate 🐞s',
