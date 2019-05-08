@@ -117,12 +117,12 @@ def get_col_h(website):
         for see_also_link in bug["see_also"]:
             if see_also_link.find("webcompat.com") >= 0 or\
                see_also_link.find("github.com/webcompat") >= 0:
-                github_id = re.search("/(\d+)", see_also_link).group(1)
+                github_id = re.search(r'/(\d+)', see_also_link).group(1)
                 github_issues_to_check.append([github_id, bz_id])
 
     # GitHub search queries (q parameter) cannot be too long, so do >1 requests
     searches = []
-    base_search_query = "is%3Aissue+milestone%3Aduplicate+repo%3Awebcompat%2Fweb-bugs%2F"
+    base_search_query = "is%3Aissue+milestone%3Aduplicate+repo%3Awebcompat%2Fweb-bugs%2F"  # noqa
     search_query = base_search_query
     search_map_gh_to_bz = {}
     id_index = 0
@@ -144,7 +144,7 @@ def get_col_h(website):
         milestone_search = milestone_template.format(query=query)
         response = api_request(milestone_search).json()
         if response['incomplete_results']:
-            raise "Should not have over 100 results for just {n} search items".format(len(ids))
+            raise "Should not have over 100 results for just {n} search items".format(len(ids))  # noqa
         for item in response["items"]:
             bz_id = gh_to_bz_map.get(item["number"])
             if bz_id is not None and item["milestone"]["title"] == "duplicate":
@@ -153,7 +153,7 @@ def get_col_h(website):
 
     if count:
         param = "%2C".join(str(id) for id in duped_bz_ids)
-        bz_link = "https://bugzilla.mozilla.org/buglist.cgi?o1=anyexact&v1={ids}&f1=bug_id".format(ids=param)
+        bz_link = "https://bugzilla.mozilla.org/buglist.cgi?o1=anyexact&v1={ids}&f1=bug_id".format(ids=param)  # noqa
         return '=HYPERLINK("{}"; {})'.format(bz_link, count)
     else:
         return "0"
