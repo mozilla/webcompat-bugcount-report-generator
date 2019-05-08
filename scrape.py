@@ -172,7 +172,9 @@ if __name__ == '__main__':
     ])
 
     websites = get_websites(dataset_in)
+    print("Starting to scrape bugs. This could take a while.")
     for idx, website in enumerate(websites):
+        print(idx + 1, website)
         # replace the period with a space, because GitHub search is weird.
         space_website = website.replace('.', ' ')
         row = [
@@ -183,8 +185,8 @@ if __name__ == '__main__':
             get_col_h(website),
         ]
 
-        print(idx, website)
         dataset_out.append(row)
 
     with open(EXPORT_PATH, 'wb') as f:
+        print("Great success! ► {}".format(EXPORT_PATH))
         f.write(dataset_out.csv.encode('utf-8'))
